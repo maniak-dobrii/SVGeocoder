@@ -1,6 +1,7 @@
 __*Important note if your project doesn't use ARC*: you must add the @-fobjc-arc@ compiler flag to @SVGeocoder.m@ and @SVPlacemark.m@ in Target Settings > Build Phases > Compile Sources.__
 
 h1. What's different here
+
 This implementaton uses GMSCoordinateBounds instead of MKCoordinateRegion thus allowing you to throw Apple's MapKit away.
 Note, that it uses rater rough approximation of CLRegion (conversion coordinate+radius to four coordinates).
 As far as original SVGeocoder is iOS 5.0+ compatible, Google Maps SDK for iOS (1.2.0 for the moment) is 5.1+ compatible.
@@ -69,4 +70,4 @@ There's also a @region@ (@GMSCoordinateBounds@) property in case the returned pl
 
 h2. Credits
 
-SVGeocoder is brought to you by "Sam Vermette":http://samvermette.com and "contributors to the project":https://github.com/samvermette/SVGeocoder/contributors. If you have feature suggestions or bug reports, feel free to help out by sending pull requests or by "creating new issues":https://github.com/samvermette/SVGeocoder/issues/new. If you're using SVGeocoder in your project, attribution would be nice.
+Orginal SVGeocoder is brought to you by "Sam Vermette":http://samvermette.com and "contributors to the project":https://github.com/samvermette/SVGeocoder/contributors. If you have feature suggestions or bug reports, feel free to help out by sending pull requests or by "creating new issues":https://github.com/samvermette/SVGeocoder/issues/new. If you're using SVGeocoder in your project, attribution would be nice.
