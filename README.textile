@@ -3,7 +3,7 @@ __*Important note if your project doesn't use ARC*: you must add the @-fobjc-arc
 h1. What's different here
 
 This implementaton uses GMSCoordinateBounds instead of MKCoordinateRegion thus allowing you to throw Apple's MapKit away.
-Note, that it uses rater rough approximation of CLRegion (conversion coordinate+radius to four coordinates).
+Note, that it uses rather rough approximation of CLRegion (conversion coordinate+radius to four coordinates).
 As far as original SVGeocoder is iOS 5.0+ compatible, Google Maps SDK for iOS (1.2.0 for the moment) is 5.1+ compatible.
 
 h1. SVGeocoder
