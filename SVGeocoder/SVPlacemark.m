@@ -25,7 +25,7 @@
 @property (nonatomic, strong, readwrite) NSString *ISOcountryCode;
 
 @property (nonatomic, readwrite) CLLocationCoordinate2D coordinate;
-@property (nonatomic, readwrite) MKCoordinateRegion region;
+@property (nonatomic, readwrite) GMSCoordinateBounds* region;
 @property (nonatomic, strong, readwrite) CLLocation *location;
 
 @end
@@ -87,12 +87,11 @@
         NSDictionary *southWestDict = [boundsDict objectForKey:@"southwest"];
         CLLocationDegrees northEastLatitude = [[northEastDict objectForKey:@"lat"] doubleValue];
         CLLocationDegrees southWestLatitude = [[southWestDict objectForKey:@"lat"] doubleValue];
-        CLLocationDegrees latitudeDelta = fabs(northEastLatitude - southWestLatitude);
         CLLocationDegrees northEastLongitude = [[northEastDict objectForKey:@"lng"] doubleValue];
         CLLocationDegrees southWestLongitude = [[southWestDict objectForKey:@"lng"] doubleValue];
-        CLLocationDegrees longitudeDelta = fabs(northEastLongitude - southWestLongitude);
-        MKCoordinateSpan span = MKCoordinateSpanMake(latitudeDelta, longitudeDelta);
-        self.region = MKCoordinateRegionMake(self.location.coordinate, span);
+        
+        self.region = [[GMSCoordinateBounds alloc] initWithCoordinate:CLLocationCoordinate2DMake(northEastLatitude, northEastLongitude)
+                                                           coordinate:CLLocationCoordinate2DMake(southWestLatitude, southWestLongitude)];
     }
     
     return self;

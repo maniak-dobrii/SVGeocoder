@@ -9,7 +9,7 @@
 //
 
 #import "SVGeocoder.h" 
-#import <MapKit/MapKit.h>
+#import <GoogleMaps/GoogleMaps.h>
 
 #define kSVGeocoderTimeoutInterval 20
 
@@ -104,14 +104,21 @@ typedef NSUInteger SVGeocoderState;
 
 
 - (SVGeocoder*)initWithAddress:(NSString *)address region:(CLRegion *)region completion:(SVGeocoderCompletionHandler)block {
-    MKCoordinateRegion coordinateRegion = MKCoordinateRegionMakeWithDistance(region.center, region.radius, region.radius);
+    // dirty approximation
+    CLLocationDegrees latDif = region.radius / 111111;
+    CLLocationDegrees lonDif = region.radius / (111111 * cos(region.center.latitude * (M_PI / 180.0)));
+    CLLocationDegrees topLeftLat = region.center.latitude - latDif;
+    CLLocationDegrees topLeftLon = region.center.longitude - lonDif;
+    CLLocationDegrees bottomRightLat = region.center.latitude + latDif;
+    CLLocationDegrees bottomRightLon = region.center.longitude + lonDif;
+    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjectsAndKeys: 
                                        address, @"address", 
                                        [NSString stringWithFormat:@"%f,%f|%f,%f", 
-                                            coordinateRegion.center.latitude-(coordinateRegion.span.latitudeDelta/2.0),
-                                            coordinateRegion.center.longitude-(coordinateRegion.span.longitudeDelta/2.0),
-                                            coordinateRegion.center.latitude+(coordinateRegion.span.latitudeDelta/2.0),
-                                            coordinateRegion.center.longitude+(coordinateRegion.span.longitudeDelta/2.0)], @"bounds", nil];
+                                            topLeftLat,
+                                            topLeftLon,
+                                            bottomRightLat,
+                                            bottomRightLon], @"bounds", nil];
     
     return [self initWithParameters:parameters completion:block];
 }

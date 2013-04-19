@@ -7,6 +7,10 @@
 // https://github.com/samvermette/SVGeocoder
 // http://code.google.com/apis/maps/documentation/geocoding/
 //
+// The above is from  initial SVGeocoder
+// This version works with Google Maps SDK for iOS
+// note it uses rough approximation of CLRegion (check - initWithAddress:region:completion:)
+// Requires Google Maps SDK for iOS.
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
