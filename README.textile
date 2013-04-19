@@ -1,5 +1,10 @@
 __*Important note if your project doesn't use ARC*: you must add the @-fobjc-arc@ compiler flag to @SVGeocoder.m@ and @SVPlacemark.m@ in Target Settings > Build Phases > Compile Sources.__
 
+h1. What's different here
+This implementaton uses GMSCoordinateBounds instead of MKCoordinateRegion thus allowing you to throw Apple's MapKit away.
+Note, that it uses rater rough approximation of CLRegion (conversion coordinate+radius to four coordinates).
+As far as original SVGeocoder is iOS 5.0+ compatible, Google Maps SDK for iOS (1.2.0 for the moment) is 5.1+ compatible.
+
 h1. SVGeocoder
 
 SVGeocoder is a simple Cocoa wrapper for the "Google Geocoding Service":http://code.google.com/apis/maps/documentation/geocoding/. It allows you to quickly geocode and reverse-geocode addresses and coordinates. It is blocked-based, uses @NSURLConnection@, ARC, as well as @NSJSONSerialization@ to automatically parse JSON responses (making it only compatible with iOS 5+). Make sure you read the Google Geocoding Service "Terms of Service":http://code.google.com/apis/maps/terms.html#section_10_12 before using SVGeocoder. 
@@ -7,7 +12,7 @@ SVGeocoder is a simple Cocoa wrapper for the "Google Geocoding Service":http://c
 h2. Installation
 
 * Drag the @SVGeocoder/SVGeocoder@ folder into your project. 
-* Add the *CoreLocation*, *MapKit* and frameworks to your project.
+* Add the *CoreLocation*, *Google Maps SDK for iOS (1.2.0+)* and frameworks to your project.
 
 h2. Usage
 
@@ -27,7 +32,6 @@ Where @placemarks@ is an array of @SVPlacemark@ objects (see more about that bel
 Additionally, you can use Google Geocoding API's @region@ parameter to fine-tune your search:
 
 <pre>
-+ (SVGeocoder*)geocode:(NSString *)address bounds:(MKCoordinateRegion)bounds completion:(SVGeocoderCompletionHandler)block;
 + (SVGeocoder*)geocode:(NSString *)address region:(CLRegion *)region completion:(SVGeocoderCompletionHandler)block;
 </pre>
 
@@ -60,7 +64,7 @@ SVPlacemark is now a simple NSObject. Here's a sample placemark returned for str
 }
 </pre>
 
-There's also a @region@ (@MKCoordinateRegion@) property in case the returned placemark isn't a pinned location, and a @location@ (@CLLocation@) convenience property. 
+There's also a @region@ (@GMSCoordinateBounds@) property in case the returned placemark isn't a pinned location, and a @location@ (@CLLocation@) convenience property. 
 
 
 h2. Credits
