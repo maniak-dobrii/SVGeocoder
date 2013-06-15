@@ -125,7 +125,7 @@ typedef NSUInteger SVGeocoderState;
 
 - (SVGeocoder*)initWithAddress:(NSString *)address countryCode:(NSString *)countryCode completion:(SVGeocoderCompletionHandler)block {
     
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{@"address": address, @"bounds": countryCode}];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{@"address": address, @"region": countryCode}];
     
     return [self initWithParameters:parameters completion:block];
 }
