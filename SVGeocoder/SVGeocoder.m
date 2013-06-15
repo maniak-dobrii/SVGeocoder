@@ -123,6 +123,13 @@ typedef NSUInteger SVGeocoderState;
     return [self initWithParameters:parameters completion:block];
 }
 
+- (SVGeocoder*)initWithAddress:(NSString *)address countryCode:(NSString *)countryCode completion:(SVGeocoderCompletionHandler)block {
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{@"address": address, @"bounds": countryCode}];
+    
+    return [self initWithParameters:parameters completion:block];
+}
+
 
 #pragma mark - Private Utility Methods
 
